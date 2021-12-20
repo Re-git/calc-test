@@ -90,7 +90,7 @@ class Binary_input_tests(unittest.TestCase):
         self.assertEqual(calc.operation, '/')
         self.assertEqual(calc.value, '0')
 
-    def test_when_input_start_sign(self):
+    def test_when_input_star_sign(self):
         calc = Calculator()
         calc.numericSystem = NumericSystem.bin
         calc.input('*')
@@ -265,48 +265,53 @@ class hex_input_tests(unittest.TestCase):
                 self.assertEqual(calc.value, '0')
 
 
-class Casting_tests(unittest.TestCase):
+class byte_dataType_tests(unittest.TestCase):
+    calc = Calculator()
+    calc.dataType = Datatype.byte
 
-    def test_cast_bin_to_dec(self):
-        # GIVEN
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.value = '1101'
-        # WHEN
-        calc.numericSystem = NumericSystem.dec
-        # THEN
-        self.assertEqual(calc.value, '13')
 
-    def test_cast_bin_to_oct(self):
-        # GIVEN
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.value = '1101'
-        # WHEN
-        calc.numericSystem = NumericSystem.oct
-        # THEN
-        self.assertEqual(calc.value, '15')
+# class Casting_tests(unittest.TestCase):
 
-    def test_cast_bin_to_hex(self):
-        # GIVEN
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.value = '1101'
-        # WHEN
-        calc.numericSystem = NumericSystem.hex
-        # THEN
-        self.assertEqual(calc.value, 'D')
+#     def test_cast_bin_to_dec(self):
+#         # GIVEN
+#         calc = Calculator()
+#         calc.numericSystem = NumericSystem.bin
+#         calc.value = '1101'
+#         # WHEN
+#         calc.numericSystem = NumericSystem.dec
+#         # THEN
+#         self.assertEqual(calc.value, '13')
 
-    def test_cast_hex_to_bin(self):
-        # GIVEN
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.hex
-        calc.value = 'D'
-        # WHEN
-        calc.numericSystem = NumericSystem.bin
-        # THEN
-        self.assertEqual(
-            calc.value, '1101')
+#     def test_cast_bin_to_oct(self):
+#         # GIVEN
+#         calc = Calculator()
+#         calc.numericSystem = NumericSystem.bin
+#         calc.value = '1101'
+#         # WHEN
+#         calc.numericSystem = NumericSystem.oct
+#         # THEN
+#         self.assertEqual(calc.value, '15')
+
+#     def test_cast_bin_to_hex(self):
+#         # GIVEN
+#         calc = Calculator()
+#         calc.numericSystem = NumericSystem.bin
+#         calc.value = '1101'
+#         # WHEN
+#         calc.numericSystem = NumericSystem.hex
+#         # THEN
+#         self.assertEqual(calc.value, 'D')
+
+#     def test_cast_hex_to_bin(self):
+#         # GIVEN
+#         calc = Calculator()
+#         calc.numericSystem = NumericSystem.hex
+#         calc.value = 'D'
+#         # WHEN
+#         calc.numericSystem = NumericSystem.bin
+#         # THEN
+#         self.assertEqual(
+#             calc.value, '1101')
 
 
 unittest.main()

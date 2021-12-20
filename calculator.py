@@ -6,10 +6,10 @@ class Datatype:
 
 
 class NumericSystem:
-    bin = 'b'
-    dec = 'd'
-    hex = 'X'
-    oct = 'o'
+    bin = ('b', 2)
+    dec = ('d', 10)
+    hex = ('X', 16)
+    oct = ('o', 8)
 
 
 class Operations:
@@ -65,20 +65,40 @@ class Calculator:
         if self.numericSystem == newNumericSystem:
             return  # do nothing
         else:
-            self.value = self.castValue(newNumericSystem)
+            self.value = self.castValue(newNumericSystem[0])
             self._numericSystem = newNumericSystem
 
-    def input(self, character):
+    def valueIsinRange(self, inputValue):
+        acceptedValues = ""
         if self.numericSystem == NumericSystem.bin:
-            self.binInput(character)
-        elif self.numericSystem == NumericSystem.oct:
-            self.octInput(character)
-        elif self.numericSystem == NumericSystem.dec:
-            self.decInput(character)
-        elif self.numericSystem == NumericSystem.hex:
-            self.hexInput(character)
+            acceptedValues = "01"
+        if self.numericSystem == NumericSystem.oct:
+            acceptedValues = "01234567"
+        if self.numericSystem == NumericSystem.dec:
+            acceptedValues = "01234567890"
+        if self.numericSystem == NumericSystem.hex:
+            acceptedValues = "01234567890ABCDEF"
+
+        if inputValue in acceptedValues:
+            upper = 2 ** (int(self.dataType)-1)  # 128
+            lower = (2 ** (int(self.dataType)-1)) * -1  # -128
+            newValue = self.value + inputValue
+            return int(newValue, self.numericSystem[1]) < upper and int(newValue, self.numericSystem[1]) >= lower
         else:
-            raise Exception("Unknown numericSystem!")
+            return True
+
+    def input(self, character):
+        if self.valueIsinRange(character):
+            if self.numericSystem[0] == NumericSystem.bin[0]:
+                self.binInput(character)
+            elif self.numericSystem[0] == NumericSystem.oct[0]:
+                self.octInput(character)
+            elif self.numericSystem[0] == NumericSystem.dec[0]:
+                self.decInput(character)
+            elif self.numericSystem[0] == NumericSystem.hex[0]:
+                self.hexInput(character)
+            else:
+                raise Exception("Unknown numericSystem!")
 
     def binInput(self, character):
         if character in "01":
@@ -133,50 +153,51 @@ class Calculator:
     #         self.changeSign()
 
     def decimalRepresentation(self):
-        if self.numericSystem == NumericSystem.bin:
+        if self.numericSystem[0] == NumericSystem.bin[0]:
             return str(int(self.value, 2))
         else:
             raise Exception("Unknown numericSystem!")
 
     def binaryRepresentation(self):
-        if self.numericSystem == NumericSystem.bin:
+        if self.numericSystem[0] == NumericSystem.bin[0]:
             return format(
-                int(self.value, 2), NumericSystem.bin)
-        if self.numericSystem == NumericSystem.hex:
+                int(self.value, 2), NumericSystem.bin[0])
+        if self.numericSystem[0] == NumericSystem.hex[0]:
             return format(
-                int(self.value, 16), NumericSystem.bin)
-        if self.numericSystem == NumericSystem.dec:
+                int(self.value, 16), NumericSystem.bin[0])
+        if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
-                int(self.value, 10), NumericSystem.bin)
+                int(self.value, 10), NumericSystem.bin[0])
         else:
             raise Exception("Unknown numericSystem!")
 
     def hexRepresentation(self):
-        if self.numericSystem == NumericSystem.bin:
+
+        if self.numericSystem[0] == NumericSystem.bin[0]:
             return format(
-                int(self.value, 2), NumericSystem.hex)
-        if self.numericSystem == NumericSystem.dec:
+                int(self.value, 2), NumericSystem.hex[0])
+        if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
-                int(self.value, 10), NumericSystem.hex)
+                int(self.value, 10), NumericSystem.hex[0])
         else:
             raise Exception("Unknown numericSystem!")
 
     def octRepresentation(self):
-        if self.numericSystem == NumericSystem.bin:
+        if self.numericSystem[0] == NumericSystem.bin[0]:
             return format(
-                int(self.value, 2), NumericSystem.oct)
-        if self.numericSystem == NumericSystem.dec:
+                int(self.value, 2), NumericSystem.oct[0])
+        if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
-                int(self.value, 10), NumericSystem.oct)
+                int(self.value, 10), NumericSystem.oct[0])
         else:
             raise Exception("Unknown numericSystem!")
 
     def castValue(self, newNumericSystem):
-        if newNumericSystem == NumericSystem.dec:
+        if newNumericSystem == NumericSystem.dec[0]:
             return self.decimalRepresentation()
-        elif newNumericSystem == NumericSystem.oct:
+        elif newNumericSystem == NumericSystem.oct[0]:
             return self.octRepresentation()
-        elif newNumericSystem == NumericSystem.hex:
+        elif newNumericSystem == NumericSystem.hex[0]:
             return self.hexRepresentation()
-        elif newNumericSystem == NumericSystem.bin:
+        elif newNumericSystem == NumericSystem.bin[0]:
             return self.binaryRepresentation()
