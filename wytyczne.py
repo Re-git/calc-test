@@ -13,28 +13,38 @@ Testy wprowadzania znaków
 Test wprowadzania znaków w systemie binarnym
 # 1) Testy czy metoda do wprowadzania danych przyjmuje znak ”1”-> {q1, 1ww, 11 w1e1}
 # 2) Testy czy metoda do wprowadzania danych przyjmuje znak ”0”
-3) Testy czy metoda do wprowadzania danych przyjmuje znak ”+”
-4) Testy czy metoda do wprowadzania danych przyjmuje znak ”-”
-5) …Reszta akceptowanych znaków….
-6) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki {12 -> char}
+# 3) Testy czy metoda do wprowadzania danych przyjmuje znak ”+”
+# 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”-”
+# 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”*”
+# 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”/”
+# 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”!”
+# 5) …Reszta akceptowanych znaków….
+# 6) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki {12 -> char}
 
-Test wprowadzania znaków w systemie ósemkowym
-1) Test czy metoda do wprowadzania danych przyjmuje znak ”1”
-2) Test czy metoda do wprowadzania danych przyjmuje znak ”0”
-3) …Reszta akceptowanych znaków numerycznych….
-4) Testy czy metoda do wprowadzania danych przyjmuje znak ”+”
-5) Testy czy metoda do wprowadzania danych przyjmuje znak ”-”
-6) …Reszta akceptowanych znaków….
-7) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki
+# Test wprowadzania znaków w systemie ósemkowym
+# 1) Test czy metoda do wprowadzania danych przyjmuje znak ”1”
+# 2) Test czy metoda do wprowadzania danych przyjmuje znak ”0”
+# 3) …Reszta akceptowanych znaków numerycznych….
+# 1) Test czy metoda do wprowadzania danych przyjmuje znak ”*”
+# 1) Test czy metoda do wprowadzania danych przyjmuje znak ”/”
+# 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”+”
+# 5) Testy czy metoda do wprowadzania danych przyjmuje znak ”-”
+# 6) …Reszta akceptowanych znaków….
+# 7) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki
 
-Test wprowadzania znaków w systemie ….
-1) Implementacja pozostałych grup testowych dech ex
+# Test wprowadzania znaków w systemie ….
+# 1) Implementacja pozostałych grup testowych dech ex
 
 Testy wprowadzania wartości
 Test wprowadzania wartości dla typu bajt
 1) Testy czy metoda do wprowadzania danych przyjmuje wartości z zakresu - 128 < -> 127
 2) Testy czy metoda do wprowadzania danych kończy przyjmowanie znaków po osiągnięciu wartości określonej zakresem. ”-129” -> ”12”, ”291” -> ”29”
 3) Testy czy metoda do wprowadzania danych przyjmuje znaki operatorów po osiągnięciu wartości określonej zakresem(+ -= *)
+
+
+
+
+
 
 Test wprowadzania wartości dla typu word ….
 1) ….

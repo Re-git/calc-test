@@ -23,8 +23,18 @@ class Calculator:
 
     def __init__(self):
         self._value = '0'
-        self._numericSystem = NumericSystem.bin
+        self._numericSystem = NumericSystem.dec
         self._dataType = Datatype.qword
+        self._binaryValue = 64 * '0'
+        self._operation = ''
+
+    @property
+    def operation(self):
+        return self._operation
+
+    @operation.setter
+    def operation(self, value):
+        self._operation = value
 
     @property
     def value(self):
@@ -36,15 +46,7 @@ class Calculator:
 
     @property
     def binaryValue(self):
-        return self.binaryRepresentation()
-
-    @property
-    def octValue(self):
-        return self.octRepresentation()
-
-    @property
-    def hexValue(self):
-        return self.hexRepresentation()
+        return self._binaryValue
 
     @property
     def dataType(self):
@@ -69,6 +71,14 @@ class Calculator:
     def input(self, character):
         if self.numericSystem == NumericSystem.bin:
             self.binInput(character)
+        elif self.numericSystem == NumericSystem.oct:
+            self.octInput(character)
+        elif self.numericSystem == NumericSystem.dec:
+            self.decInput(character)
+        elif self.numericSystem == NumericSystem.hex:
+            self.hexInput(character)
+        else:
+            raise Exception("Unknown numericSystem!")
 
     def binInput(self, character):
         if character in "01":
@@ -76,6 +86,51 @@ class Calculator:
                 self.value = character
             else:
                 self.value += character
+        if character in "+-*/=!()":
+            self.operation = character
+
+    def octInput(self, character):
+        if character in "01234567":
+            if self.value == '0':
+                self.value = character
+            else:
+                self.value += character
+        if character in "+-*/=!()":
+            self.operation = character
+
+    def decInput(self, character):
+        if character in "0123456789":
+            if self.value == '0':
+                self.value = character
+            else:
+                self.value += character
+        if character in "+-*/=!()":
+            self.operation = character
+
+    def hexInput(self, character):
+        if character in "0123456789ABCDEF":
+            if self.value == '0':
+                self.value = character
+            else:
+                self.value += character
+        if character in "+-*/=!()":
+            self.operation = character
+
+    #         self.evaluateOperation(character)
+
+    # def evaluateOperation(self, character):
+    #     if character == '+':
+    #         pass
+    #     if character == '-':
+    #         pass
+    #     if character == '*':
+    #         pass
+    #     if character == '/':
+    #         pass
+    #     if character == '=':
+    #         pass
+    #     if character == '!':
+    #         self.changeSign()
 
     def decimalRepresentation(self):
         if self.numericSystem == NumericSystem.bin:
@@ -86,10 +141,13 @@ class Calculator:
     def binaryRepresentation(self):
         if self.numericSystem == NumericSystem.bin:
             return format(
-                int(self.value, 2), '0' + self.dataType + NumericSystem.bin)
+                int(self.value, 2), NumericSystem.bin)
         if self.numericSystem == NumericSystem.hex:
             return format(
-                int(self.value, 16), '0' + self.dataType + NumericSystem.bin)
+                int(self.value, 16), NumericSystem.bin)
+        if self.numericSystem == NumericSystem.dec:
+            return format(
+                int(self.value, 10), NumericSystem.bin)
         else:
             raise Exception("Unknown numericSystem!")
 
@@ -97,6 +155,9 @@ class Calculator:
         if self.numericSystem == NumericSystem.bin:
             return format(
                 int(self.value, 2), NumericSystem.hex)
+        if self.numericSystem == NumericSystem.dec:
+            return format(
+                int(self.value, 10), NumericSystem.hex)
         else:
             raise Exception("Unknown numericSystem!")
 
@@ -104,6 +165,9 @@ class Calculator:
         if self.numericSystem == NumericSystem.bin:
             return format(
                 int(self.value, 2), NumericSystem.oct)
+        if self.numericSystem == NumericSystem.dec:
+            return format(
+                int(self.value, 10), NumericSystem.oct)
         else:
             raise Exception("Unknown numericSystem!")
 
