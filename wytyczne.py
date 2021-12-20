@@ -1,11 +1,7 @@
-# Implementacja testów kalkulatora
-
-# Implementacja testu -> Implementacja funkcjonalności
-
 # Założenia
+# Implementacja testu -> Implementacja funkcjonalności
 # Kalkulator to klasa, która kontroluje: Walidację danych wejściowych, Operacje arytmetyczne i logiczne, Dostarczanie wyników operacji.
 
-# Testy
 # Testy inicjacji klasy
 # 1) Test tworzenia obiektu klasy kalkulator. Sprawdzenie czy można utworzyć obiekt klasy przy pomocy konstruktora bezparametrowego.
 # 2) Test wartości domyślnej kalkulatora. Sprawdzenie czy metoda zwracająca bieżącą wartość kalkulatora zwraca wartość ”0”.
@@ -20,8 +16,8 @@ Test wprowadzania znaków w systemie binarnym
 3) Testy czy metoda do wprowadzania danych przyjmuje znak ”+”
 4) Testy czy metoda do wprowadzania danych przyjmuje znak ”-”
 5) …Reszta akceptowanych znaków….
+6) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki {12 -> char}
 
-Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki {12->char}
 Test wprowadzania znaków w systemie ósemkowym
 1) Test czy metoda do wprowadzania danych przyjmuje znak ”1”
 2) Test czy metoda do wprowadzania danych przyjmuje znak ”0”
@@ -36,9 +32,9 @@ Test wprowadzania znaków w systemie ….
 
 Testy wprowadzania wartości
 Test wprowadzania wartości dla typu bajt
-1) Testy czy metoda do wprowadzania danych przyjmuje wartości z zakresu -128 <-> 127
+1) Testy czy metoda do wprowadzania danych przyjmuje wartości z zakresu - 128 < -> 127
 2) Testy czy metoda do wprowadzania danych kończy przyjmowanie znaków po osiągnięciu wartości określonej zakresem. ”-129” -> ”12”, ”291” -> ”29”
-3) Testy czy metoda do wprowadzania danych przyjmuje znaki operatorów po osiągnięciu wartości określonej zakresem (+-=*)
+3) Testy czy metoda do wprowadzania danych przyjmuje znaki operatorów po osiągnięciu wartości określonej zakresem(+ -= *)
 
 Test wprowadzania wartości dla typu word ….
 1) ….
