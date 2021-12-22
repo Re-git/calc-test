@@ -199,13 +199,21 @@ class Dec_input_tests(unittest.TestCase):
     def test_when_input_accepted_signs(self):
         calc = Calculator()
         calc.numericSystem = NumericSystem.dec
-        for i in "+-*/=!()":
+        for i in "+-*/=()":
             calc.value = '0'
             calc.operation = ''
 
             calc.input(i)
             self.assertEqual(calc.value, '0')
             self.assertEqual(calc.operation, i)
+
+    def test_when_input_change_sign(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.dec
+        calc.input('1')
+        calc.input('!')
+        self.assertEqual(calc.displayValue, '-1')
+        self.assertEqual(calc.operation, '')
 
     def test_for_other_signs(self):
         calc = Calculator()
@@ -266,8 +274,57 @@ class hex_input_tests(unittest.TestCase):
 
 
 class byte_dataType_tests(unittest.TestCase):
+    def test_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('0')
+        self.assertEqual(calc.value, '0')
+
+    def test2_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('0')
+        calc.input('0')
+        calc.input('0')
+        self.assertEqual(calc.value, '0')
+
+    def test3_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('2')
+        calc.input('7')
+        self.assertEqual(calc.value, '12')
+
+    def test3_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('!')
+        calc.input('2')
+        calc.input('7')
+        self.assertEqual(calc.displayValue, '-127')
+
+    def test2_acceptable_range_high(self):
+        # Should not accept input higher than 127
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('2')
+        calc.input('8')  # would make input > 127
+        self.assertEqual(calc.value, "12")
+
+
+def test2_operations_should_be_accepted_when_at_the_upper_value_range(self):
     calc = Calculator()
     calc.dataType = Datatype.byte
+    for operation in "+-*/=!()":
+        calc.input('1')
+        calc.input('2')
+        calc.input('7')
+        calc.input(operation)
+        self.assertEqual(calc.value, "127")
+        self.assertEqual(calc.operation, "+")
 
 
 # class Casting_tests(unittest.TestCase):

@@ -22,6 +22,7 @@ class Operations:
 class Calculator:
 
     def __init__(self):
+        self.negative = False
         self._value = '0'
         self._numericSystem = NumericSystem.dec
         self._dataType = Datatype.qword
@@ -33,11 +34,19 @@ class Calculator:
         return self._operation
 
     @operation.setter
-    def operation(self, value):
-        self._operation = value
+    def operation(self, v):
+        self._operation = v
 
     @property
     def value(self):
+        if self.negative:
+            return self._value
+        return self._value
+
+    @property
+    def displayValue(self):
+        if self.negative:
+            return '-' + self._value
         return self._value
 
     @value.setter
@@ -87,6 +96,25 @@ class Calculator:
         else:
             return True
 
+    def changeSign(self):
+        if self.value != '0':
+            self.negative = not self.negative
+
+    def evaluateOperation(self, character):
+        if character == '!':
+            self.changeSign()
+            self.operation = ''
+        # if character == '+':
+        #     pass
+        # if character == '-':
+        #     pass
+        # if character == '*':
+        #     pass
+        # if character == '/':
+        #     pass
+        # if character == '=':
+        #     pass
+
     def input(self, character):
         if self.valueIsinRange(character):
             if self.numericSystem[0] == NumericSystem.bin[0]:
@@ -126,6 +154,7 @@ class Calculator:
                 self.value += character
         if character in "+-*/=!()":
             self.operation = character
+            self.evaluateOperation(character)
 
     def hexInput(self, character):
         if character in "0123456789ABCDEF":
@@ -137,20 +166,6 @@ class Calculator:
             self.operation = character
 
     #         self.evaluateOperation(character)
-
-    # def evaluateOperation(self, character):
-    #     if character == '+':
-    #         pass
-    #     if character == '-':
-    #         pass
-    #     if character == '*':
-    #         pass
-    #     if character == '/':
-    #         pass
-    #     if character == '=':
-    #         pass
-    #     if character == '!':
-    #         self.changeSign()
 
     def decimalRepresentation(self):
         if self.numericSystem[0] == NumericSystem.bin[0]:
@@ -173,9 +188,6 @@ class Calculator:
 
     def hexRepresentation(self):
 
-        if self.numericSystem[0] == NumericSystem.bin[0]:
-            return format(
-                int(self.value, 2), NumericSystem.hex[0])
         if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
                 int(self.value, 10), NumericSystem.hex[0])
@@ -183,9 +195,6 @@ class Calculator:
             raise Exception("Unknown numericSystem!")
 
     def octRepresentation(self):
-        if self.numericSystem[0] == NumericSystem.bin[0]:
-            return format(
-                int(self.value, 2), NumericSystem.oct[0])
         if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
                 int(self.value, 10), NumericSystem.oct[0])
