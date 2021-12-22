@@ -92,6 +92,9 @@ class Calculator:
             upper = 2 ** (int(self.dataType)-1)  # 128
             lower = (2 ** (int(self.dataType)-1)) * -1  # -128
             newValue = self.value + inputValue
+
+            if self.negative:
+                return int(newValue, self.numericSystem[1]) * -1 < upper and int(newValue, self.numericSystem[1]) * -1 >= lower
             return int(newValue, self.numericSystem[1]) < upper and int(newValue, self.numericSystem[1]) >= lower
         else:
             return True

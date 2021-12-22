@@ -10,7 +10,7 @@ class Initial_tests(unittest.TestCase):
 
     def test_initial_value(self):
         calc = Calculator()
-        self.assertEqual(calc.value, '0')
+        self.assertEqual(calc.displayValue, '0')
 
     def test_initial_datatype(self):
         calc = Calculator()
@@ -32,7 +32,7 @@ class Binary_input_tests(unittest.TestCase):
         calc.numericSystem = NumericSystem.bin
 
         calc.input('1')
-        self.assertEqual(calc.value, '1')
+        self.assertEqual(calc.displayValue, '1')
         self.assertEqual(calc.operation, '')
 
     def test2_when_input_0(self):
@@ -40,7 +40,7 @@ class Binary_input_tests(unittest.TestCase):
         calc.numericSystem = NumericSystem.bin
 
         calc.input('0')
-        self.assertEqual(calc.value, '0')
+        self.assertEqual(calc.displayValue, '0')
         self.assertEqual(calc.operation, '')
 
     def test2_when_input_other_numbers(self):
@@ -49,81 +49,19 @@ class Binary_input_tests(unittest.TestCase):
 
         for number in ["23456789"]:
             calc.input(number)
-            self.assertEqual(calc.value, '0')
+            self.assertEqual(calc.displayValue, '0')
             self.assertEqual(calc.operation, '')
 
-    def test2_when_input_other_characters(self):
+    def test_when_input_accepted_signs(self):
         calc = Calculator()
         calc.numericSystem = NumericSystem.bin
+        for i in "+-*/=!()":
+            calc.value = '0'
+            calc.operation = ''
 
-        for letter in ["abcdefghijklmnoprstquvwzABCDEFGHIJKLMNOPRSTQUVWZ"]:
-            calc.input(letter)
-            self.assertEqual(calc.value, '0')
-            self.assertEqual(calc.operation, '')
-
-    def test_when_input_percent(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-
-        calc.input('%')
-        self.assertEqual(calc.value, '0')
-        self.assertEqual(calc.operation, '')
-
-    def test_when_input_plus_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('+')
-        self.assertEqual(calc.operation, '+')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_minus_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('-')
-        self.assertEqual(calc.operation, '-')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_slash_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('/')
-        self.assertEqual(calc.operation, '/')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_star_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('*')
-        self.assertEqual(calc.operation, '*')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_exclamation_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('!')
-        self.assertEqual(calc.operation, '!')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_equal_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('=')
-        self.assertEqual(calc.operation, '=')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_open_paren_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input('(')
-        self.assertEqual(calc.operation, '(')
-        self.assertEqual(calc.value, '0')
-
-    def test_when_input_close_paren_sign(self):
-        calc = Calculator()
-        calc.numericSystem = NumericSystem.bin
-        calc.input(')')
-        self.assertEqual(calc.operation, ')')
-        self.assertEqual(calc.value, '0')
+            calc.input(i)
+            self.assertEqual(calc.displayValue, '0')
+            self.assertEqual(calc.operation, i)
 
     def test_for_other_signs(self):
         calc = Calculator()
@@ -139,7 +77,7 @@ class Binary_input_tests(unittest.TestCase):
                 # input char
                 calc.input(chr(i))
                 self.assertEqual(calc.operation, '')
-                self.assertEqual(calc.value, '0')
+                self.assertEqual(calc.displayValue, '0')
 
 
 class Oct_input_tests(unittest.TestCase):
@@ -152,7 +90,7 @@ class Oct_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, i)
+            self.assertEqual(calc.displayValue, i)
             self.assertEqual(calc.operation, '')
 
     def test_when_input_accepted_signs(self):
@@ -163,7 +101,7 @@ class Oct_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, '0')
+            self.assertEqual(calc.displayValue, '0')
             self.assertEqual(calc.operation, i)
 
     def test_for_other_signs(self):
@@ -180,7 +118,7 @@ class Oct_input_tests(unittest.TestCase):
                 # input char
                 calc.input(chr(i))
                 self.assertEqual(calc.operation, '')
-                self.assertEqual(calc.value, '0')
+                self.assertEqual(calc.displayValue, '0')
 
 
 class Dec_input_tests(unittest.TestCase):
@@ -193,7 +131,7 @@ class Dec_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, i)
+            self.assertEqual(calc.displayValue, i)
             self.assertEqual(calc.operation, '')
 
     def test_when_input_accepted_signs(self):
@@ -204,7 +142,7 @@ class Dec_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, '0')
+            self.assertEqual(calc.displayValue, '0')
             self.assertEqual(calc.operation, i)
 
     def test_when_input_change_sign(self):
@@ -229,7 +167,7 @@ class Dec_input_tests(unittest.TestCase):
                 # input char
                 calc.input(chr(i))
                 self.assertEqual(calc.operation, '')
-                self.assertEqual(calc.value, '0')
+                self.assertEqual(calc.displayValue, '0')
 
 
 class hex_input_tests(unittest.TestCase):
@@ -242,7 +180,7 @@ class hex_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, i)
+            self.assertEqual(calc.displayValue, i)
             self.assertEqual(calc.operation, '')
 
     def test_when_input_accepted_signs(self):
@@ -253,7 +191,7 @@ class hex_input_tests(unittest.TestCase):
             calc.operation = ''
 
             calc.input(i)
-            self.assertEqual(calc.value, '0')
+            self.assertEqual(calc.displayValue, '0')
             self.assertEqual(calc.operation, i)
 
     def test_for_other_signs(self):
@@ -270,7 +208,7 @@ class hex_input_tests(unittest.TestCase):
                 # input char
                 calc.input(chr(i))
                 self.assertEqual(calc.operation, '')
-                self.assertEqual(calc.value, '0')
+                self.assertEqual(calc.displayValue, '0')
 
 
 class byte_dataType_tests(unittest.TestCase):
@@ -278,7 +216,7 @@ class byte_dataType_tests(unittest.TestCase):
         calc = Calculator()
         calc.dataType = Datatype.byte
         calc.input('0')
-        self.assertEqual(calc.value, '0')
+        self.assertEqual(calc.displayValue, '0')
 
     def test2_input_for_acceptable_values_range(self):
         calc = Calculator()
@@ -286,7 +224,7 @@ class byte_dataType_tests(unittest.TestCase):
         calc.input('0')
         calc.input('0')
         calc.input('0')
-        self.assertEqual(calc.value, '0')
+        self.assertEqual(calc.displayValue, '0')
 
     def test3_input_for_acceptable_values_range(self):
         calc = Calculator()
@@ -294,37 +232,58 @@ class byte_dataType_tests(unittest.TestCase):
         calc.input('1')
         calc.input('2')
         calc.input('7')
-        self.assertEqual(calc.value, '12')
+        print(calc.displayValue)
+        self.assertEqual(calc.displayValue, "127")
 
-    def test3_input_for_acceptable_values_range(self):
+    def test4_input_for_acceptable_values_range(self):
         calc = Calculator()
         calc.dataType = Datatype.byte
         calc.input('1')
         calc.input('!')
         calc.input('2')
-        calc.input('7')
-        self.assertEqual(calc.displayValue, '-127')
+        calc.input('8')
+        self.assertEqual(calc.displayValue, "-128")
 
-    def test2_acceptable_range_high(self):
+    def test5_input_for_acceptable_values_range(self):
         # Should not accept input higher than 127
         calc = Calculator()
         calc.dataType = Datatype.byte
         calc.input('1')
         calc.input('2')
         calc.input('8')  # would make input > 127
-        self.assertEqual(calc.value, "12")
+        self.assertEqual(calc.displayValue, "12")
 
-
-def test2_operations_should_be_accepted_when_at_the_upper_value_range(self):
-    calc = Calculator()
-    calc.dataType = Datatype.byte
-    for operation in "+-*/=!()":
+    def test6_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
         calc.input('1')
+        calc.input('!')
         calc.input('2')
-        calc.input('7')
-        calc.input(operation)
-        self.assertEqual(calc.value, "127")
-        self.assertEqual(calc.operation, "+")
+        calc.input('9')
+        self.assertEqual(calc.displayValue, "-12")
+
+    def test_operations_should_be_accepted_when_at_the_upper_value_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        for operation in "+-*/=()":
+            calc.input('1')
+            calc.input('2')
+            calc.input('7')
+            calc.input(operation)
+            self.assertEqual(calc.displayValue, "127")
+            self.assertEqual(calc.operation, operation)
+
+    def test_operations_should_be_accepted_when_at_the_lower_value_range(self):
+        for operation in "+-*/=()":
+            calc = Calculator()
+            calc.dataType = Datatype.byte
+            calc.input('1')
+            calc.input('!')
+            calc.input('2')
+            calc.input('8')
+            calc.input(operation)
+            self.assertEqual(calc.displayValue, "-128")
+            self.assertEqual(calc.operation, operation)
 
 
 # class Casting_tests(unittest.TestCase):
@@ -337,7 +296,7 @@ def test2_operations_should_be_accepted_when_at_the_upper_value_range(self):
 #         # WHEN
 #         calc.numericSystem = NumericSystem.dec
 #         # THEN
-#         self.assertEqual(calc.value, '13')
+#         self.assertEqual(calc.displayValue, '13')
 
 #     def test_cast_bin_to_oct(self):
 #         # GIVEN
@@ -347,7 +306,7 @@ def test2_operations_should_be_accepted_when_at_the_upper_value_range(self):
 #         # WHEN
 #         calc.numericSystem = NumericSystem.oct
 #         # THEN
-#         self.assertEqual(calc.value, '15')
+#         self.assertEqual(calc.displayValue, '15')
 
 #     def test_cast_bin_to_hex(self):
 #         # GIVEN
@@ -357,7 +316,7 @@ def test2_operations_should_be_accepted_when_at_the_upper_value_range(self):
 #         # WHEN
 #         calc.numericSystem = NumericSystem.hex
 #         # THEN
-#         self.assertEqual(calc.value, 'D')
+#         self.assertEqual(calc.displayValue, 'D')
 
 #     def test_cast_hex_to_bin(self):
 #         # GIVEN
