@@ -81,7 +81,6 @@ class Binary_input_tests(unittest.TestCase):
 
 
 class Oct_input_tests(unittest.TestCase):
-
     def test_when_input_accepted_numeric_values(self):
         calc = Calculator()
         calc.numericSystem = NumericSystem.oct
