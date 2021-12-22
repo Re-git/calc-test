@@ -33,16 +33,14 @@ Test wprowadzania znaków w systemie binarnym
 # 7) Testy czy metoda do wprowadzania danych ignoruje pozostałe znaki
 
 # Test wprowadzania znaków w systemie ….
-# 1) Implementacja pozostałych grup testowych dech ex
+# 1) Implementacja pozostałych grup testowych dec hex
 
 Testy wprowadzania wartości
 Test wprowadzania wartości dla typu bajt
 1) Testy czy metoda do wprowadzania danych przyjmuje wartości z zakresu - 128 < -> 127
 2) Testy czy metoda do wprowadzania danych kończy przyjmowanie znaków po osiągnięciu wartości określonej zakresem. ”-129” -> ”12”, ”291” -> ”29”
 3) Testy czy metoda do wprowadzania danych przyjmuje znaki operatorów po osiągnięciu wartości określonej zakresem(+ -= *)
-
-
-
+4)zmienić testy inputu dla binarnych to match rest
 
 
 
