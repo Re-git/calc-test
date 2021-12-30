@@ -55,7 +55,7 @@ class Binary_input_tests(unittest.TestCase):
     def test_when_input_accepted_signs(self):
         calc = Calculator()
         calc.numericSystem = NumericSystem.bin
-        for i in "+-*/=!()":
+        for i in "+-*/=()":
             calc.value = '0'
             calc.operation = ''
 
@@ -285,48 +285,213 @@ class byte_dataType_tests(unittest.TestCase):
             self.assertEqual(calc.operation, operation)
 
 
-# class Casting_tests(unittest.TestCase):
+class word_dataType_tests(unittest.TestCase):
+    def test_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('0')
+        self.assertEqual(calc.displayValue, '0')
 
-#     def test_cast_bin_to_dec(self):
-#         # GIVEN
-#         calc = Calculator()
-#         calc.numericSystem = NumericSystem.bin
-#         calc.value = '1101'
-#         # WHEN
-#         calc.numericSystem = NumericSystem.dec
-#         # THEN
-#         self.assertEqual(calc.displayValue, '13')
+    def test2_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('0')
+        calc.input('0')
+        calc.input('0')
+        self.assertEqual(calc.displayValue, '0')
 
-#     def test_cast_bin_to_oct(self):
-#         # GIVEN
-#         calc = Calculator()
-#         calc.numericSystem = NumericSystem.bin
-#         calc.value = '1101'
-#         # WHEN
-#         calc.numericSystem = NumericSystem.oct
-#         # THEN
-#         self.assertEqual(calc.displayValue, '15')
+    def test3_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('3')
+        calc.input('2')
+        calc.input('7')
+        calc.input('6')
+        calc.input('7')
+        print(calc.displayValue)
+        self.assertEqual(calc.displayValue, "32767")
 
-#     def test_cast_bin_to_hex(self):
-#         # GIVEN
-#         calc = Calculator()
-#         calc.numericSystem = NumericSystem.bin
-#         calc.value = '1101'
-#         # WHEN
-#         calc.numericSystem = NumericSystem.hex
-#         # THEN
-#         self.assertEqual(calc.displayValue, 'D')
+    def test4_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('3')
+        calc.input('!')
+        calc.input('2')
+        calc.input('7')
+        calc.input('6')
+        calc.input('8')
+        self.assertEqual(calc.displayValue, "-32768")
 
-#     def test_cast_hex_to_bin(self):
-#         # GIVEN
-#         calc = Calculator()
-#         calc.numericSystem = NumericSystem.hex
-#         calc.value = 'D'
-#         # WHEN
-#         calc.numericSystem = NumericSystem.bin
-#         # THEN
-#         self.assertEqual(
-#             calc.value, '1101')
+    def test5_input_for_acceptable_values_range(self):
+        # Should not accept input higher than 127
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('3')
+        calc.input('2')
+        calc.input('7')
+        calc.input('6')
+        calc.input('8')
+        self.assertEqual(calc.displayValue, "3276")
+
+    def test6_input_for_acceptable_values_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        calc.input('3')
+        calc.input('!')
+        calc.input('2')
+        calc.input('7')
+        calc.input('6')
+        calc.input('9')
+        self.assertEqual(calc.displayValue, "-3276")
+
+    def test_operations_should_be_accepted_when_at_the_upper_value_range(self):
+        calc = Calculator()
+        calc.dataType = Datatype.word
+        for operation in "+-*/=()":
+            calc.input('3')
+            calc.input('2')
+            calc.input('7')
+            calc.input('6')
+            calc.input('7')
+            calc.input(operation)
+            self.assertEqual(calc.displayValue, "32767")
+            self.assertEqual(calc.operation, operation)
+
+    def test_operations_should_be_accepted_when_at_the_lower_value_range(self):
+        for operation in "+-*/=()":
+            calc = Calculator()
+            calc.dataType = Datatype.word
+            calc.input('3')
+            calc.input('!')
+            calc.input('2')
+            calc.input('7')
+            calc.input('6')
+            calc.input('8')
+            calc.input(operation)
+            self.assertEqual(calc.displayValue, "-32768")
+            self.assertEqual(calc.operation, operation)
+
+
+class Binary_casting_tests(unittest.TestCase):
+    def test1_binary_to_decimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('1')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.dec
+        self.assertEqual(calc.displayValue, "7")
+
+    def test2_binary_to_decimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.dec
+        self.assertEqual(calc.displayValue, "5")
+
+    def test3_binary_to_decimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.dec
+        self.assertEqual(calc.displayValue, "21")
+
+    def test1_binary_to_octadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('1')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.oct
+        self.assertEqual(calc.displayValue, "7")
+
+    def test2_binary_to_octadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('0')
+        calc.input('0')
+        calc.numericSystem = NumericSystem.oct
+        self.assertEqual(calc.displayValue, "10")
+
+    def test3_binary_to_octadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.oct
+        self.assertEqual(calc.displayValue, "25")
+
+    def test1_binary_to_hexadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('1')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.hex
+        self.assertEqual(calc.displayValue, "7")
+
+    def test2_binary_to_hexadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('0')
+        calc.input('0')
+        calc.input('0')
+        calc.numericSystem = NumericSystem.hex
+        self.assertEqual(calc.displayValue, "10")
+
+    def test3_binary_to_hexadecimal_casting(self):
+        calc = Calculator()
+        calc.numericSystem = NumericSystem.bin
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.input('0')
+        calc.input('1')
+        calc.numericSystem = NumericSystem.hex
+        self.assertEqual(calc.displayValue, "15")
+
+
+class Byte_casting_tests(unittest.TestCase):
+    def test1_byte_to_word_casting(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('1')
+        calc.input('1')
+        calc.dataType = Datatype.word
+        self.assertEqual(calc.displayValue, "111")
+
+    def test2_byte_to_word_casting(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('1')
+        calc.input('1')
+        calc.dataType = Datatype.word
+        self.assertEqual(calc.binaryValue, "0000000001101111")
+
+    def test3_byte_to_word_casting(self):
+        calc = Calculator()
+        calc.dataType = Datatype.byte
+        calc.input('1')
+        calc.input('!')
+        calc.input('1')
+        calc.input('1')
+        calc.dataType = Datatype.word
+        self.assertEqual(calc.binaryValue, "1111111110010001")
 
 
 unittest.main()

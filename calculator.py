@@ -55,7 +55,12 @@ class Calculator:
 
     @property
     def binaryValue(self):
-        return self._binaryValue
+        if self.value == '0':
+            return int(self.dataType) * '0'
+        if not self.negative:
+            binaryLength = len(self.binaryRepresentation())
+            return (int(self.dataType)-binaryLength) * '0' + self.binaryRepresentation()
+        return bin(int(self.displayValue) + (1 << (int(self.dataType))))[2:]
 
     @property
     def dataType(self):
@@ -107,16 +112,6 @@ class Calculator:
         if character == '!':
             self.changeSign()
             self.operation = ''
-        # if character == '+':
-        #     pass
-        # if character == '-':
-        #     pass
-        # if character == '*':
-        #     pass
-        # if character == '/':
-        #     pass
-        # if character == '=':
-        #     pass
 
     def input(self, character):
         if self.valueIsinRange(character):
@@ -139,6 +134,7 @@ class Calculator:
                 self.value += character
         if character in "+-*/=!()":
             self.operation = character
+            self.evaluateOperation(character)
 
     def octInput(self, character):
         if character in "01234567":
@@ -168,8 +164,6 @@ class Calculator:
         if character in "+-*/=!()":
             self.operation = character
 
-    #         self.evaluateOperation(character)
-
     def decimalRepresentation(self):
         if self.numericSystem[0] == NumericSystem.bin[0]:
             return str(int(self.value, 2))
@@ -194,6 +188,9 @@ class Calculator:
         if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
                 int(self.value, 10), NumericSystem.hex[0])
+        if self.numericSystem[0] == NumericSystem.bin[0]:
+            return format(
+                int(self.value, 2), NumericSystem.hex[0])
         else:
             raise Exception("Unknown numericSystem!")
 
@@ -201,6 +198,9 @@ class Calculator:
         if self.numericSystem[0] == NumericSystem.dec[0]:
             return format(
                 int(self.value, 10), NumericSystem.oct[0])
+        if self.numericSystem[0] == NumericSystem.bin[0]:
+            return format(
+                int(self.value, 2), NumericSystem.oct[0])
         else:
             raise Exception("Unknown numericSystem!")
 
